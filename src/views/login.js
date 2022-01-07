@@ -2,19 +2,33 @@ import React from 'react'
 import Card from '../components/card'
 import FormGroup from '../components/form-group'
 import { useNavigate } from 'react-router-dom'
+import UsuarioService from '../app/service/usuarioService'
+import LocalStoreService from '../app/service/localStorageService'
+import { mensagemErro } from '../components/toastr'
 
 function Login(){
     const [email, setEmail] = React.useState('');
     const [senha, setSenha] = React.useState('');
+
+    let service = new UsuarioService();
 
     let navigate = useNavigate()
     function botaoLoginCadastrar() {
         navigate('/cadastro-usuarios')
     }
 
-    function botaoEntrarLoginExibeConsole () {
-        console.log('E-mail: ', email)
-        console.log('Senha: ', senha)
+    function entrar() {
+        service.autenticar({
+            email: email,
+            senha: senha
+        }).then(response => {
+            LocalStoreService.adicionarItem('_usuario_logado', response.data)
+            navigate('/home')
+        }).catch(erro => {
+            mensagemErro(erro.response.data.detail)
+        })
+
+        console.log('Requisição de login executada')
     }
     
     return(
@@ -38,7 +52,7 @@ function Login(){
                                             autoFocus={true} placeholder="Digite a Senha"/>
 
                                         </FormGroup>
-                                        <button onClick={botaoEntrarLoginExibeConsole} className='btn btn-success'>Entrar</button>
+                                        <button onClick={entrar} className='btn btn-success'>Entrar</button>
                                         <button onClick={botaoLoginCadastrar} className='btn btn-danger'>Cadastrar</button>
                                         
                                     </fieldset>
