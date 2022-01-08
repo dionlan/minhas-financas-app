@@ -11,7 +11,7 @@ function CadastroUsuario() {
     const [senha, setSenha] = React.useState('');
     const [senhaRepeticao, setSenhaRepeticao] = React.useState('');
 
-    let service = new UsuarioService()
+    const service = new UsuarioService()
 
     function validar(params) {
         const msgs = []
