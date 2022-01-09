@@ -17,7 +17,6 @@ function CadastroUsuario() {
         const msgs = []
         if(!nome){
             msgs.push('O campo Nome é obrigatório.')
-
         }
         if(!email){
             msgs.push('O campo Email é obrigatório.')
@@ -29,7 +28,6 @@ function CadastroUsuario() {
         }else if(senha !== senhaRepeticao){
             msgs.push('As senhas não coincidem. Digite novamente.')
         }
-        
         return msgs;
     }
 

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "../../components/card";
 import FormGroup from "../../components/form-group";
 import SelectMenu from '../../components/selectMenu'
@@ -12,19 +13,20 @@ import {Button} from 'primereact/button'
 function ConsultaLancamentos (){
 
     const service = new LancamentoService()
+    let navigate = useNavigate();
 
-    const [ano, setAno] = React.useState('');
-    const [mes, setMes] = React.useState('');
-    const [tipo, setTipo] = React.useState('');
-    const [descricao, setDescricao] = React.useState('');
-    const [lancamentos, setLancamentos] = React.useState([]);
-    const [showConfirmDialog, setShowConfirmDialog] = React.useState(false);
-    const [lancamentoDeletar, setLancamentoDeletar] = React.useState({});
+    const [ano, setAno] = useState('');
+    const [mes, setMes] = useState('');
+    const [tipo, setTipo] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [lancamentos, setLancamentos] = useState([]);
+    const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+    const [lancamentoDeletar, setLancamentoDeletar] = useState({});
 
     function buscar () {
 
         if(!ano){
-            messages.mensagemErro('O preenchimento do campo ano é obrigatório')
+            messages.mensagemErro('O preenchimento do campo ano é obrigatórios')
             return false;
         }
 
@@ -47,7 +49,7 @@ function ConsultaLancamentos (){
     }
 
     function editar (id){
-        console.log('Editando um lançamento: ', id)
+        navigate(`/cadastro-lancamentos/${id}`)
     }
 
     function abrirConfirmação(lancamento){
@@ -60,7 +62,6 @@ function ConsultaLancamentos (){
     }
 
     function deletar(){
-        
         service.deletar(lancamentoDeletar.id)
         .then(response => { 
             const index = lancamentos.indexOf(lancamentoDeletar);
@@ -71,10 +72,9 @@ function ConsultaLancamentos (){
 
         }).catch(error => {
             console.log(error)
-            messages.mensagemErro('Ocorreu um erro ao tentar deletar o lançamento.', error.value)
+            messages.mensagemErro('Ocorreu um erro ao tentar deletar o lançamento.')
         })
     }
-
 
     const meses = service.obterListaMeses();
     
@@ -86,6 +86,11 @@ function ConsultaLancamentos (){
             <Button label='Cancelar' icon='pi pi-check' onClick={cancelarDelecao} className='p-button-secondary' />
         </div>
     )
+
+    function preparaFormularioCadastro() {
+        
+        navigate('/cadastro-lancamentos')
+    }
 
     return ( 
         <Card title = "Consulta Lançamentos" >
@@ -113,7 +118,7 @@ function ConsultaLancamentos (){
                         </FormGroup>
 
                         <button type="button" onClick={buscar} className="btn btn-success">Buscar</button>
-                        <button type="button" className="btn btn-danger">Cadastrar</button>
+                        <button type="button" onClick={preparaFormularioCadastro} className="btn btn-danger">Cadastrar</button>
                     </div>
                 </div>
             </div>

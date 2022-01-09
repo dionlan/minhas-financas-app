@@ -23,7 +23,7 @@ class Home extends React.Component{
                 this.setState({saldo:  response.data})
             }).catch(error => {
                 console.error(error.response)
-            });
+        });
     }
   
     render(){
@@ -36,13 +36,12 @@ class Home extends React.Component{
                 <p>E essa é sua área administrativa, utilize um dos menus ou botões abaixo para navegar pelo sistema.</p>
                 <p className="lead">
                     <a className="btn btn-primary btn-lg" href="/cadastro-usuarios" 
-                        role="button"><i className="fa fa-users"></i>  Cadastrar Usuário</a>
-                    <a className="btn btn-danger btn-lg" href="https://bootswatch.com/flatly/#" 
-                        role="button"><i className="fa fa-users"></i>  Cadastrar Lançamento</a>
+                        role="button"><i className="fa fa-users"></i> Cadastrar Usuário</a>
+                    <a className="btn btn-danger btn-lg" href="/cadastro-lancamentos" 
+                        role="button"><i className="fa fa-users"></i> Cadastrar Lançamento</a>
                 </p>
             </div>
         )
     }
- 
 }
 export default Home

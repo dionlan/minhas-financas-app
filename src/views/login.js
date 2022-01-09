@@ -10,9 +10,9 @@ function Login(){
     const [email, setEmail] = React.useState('');
     const [senha, setSenha] = React.useState('');
 
-    let service = new UsuarioService();
+    const service = new UsuarioService();
 
-    let navigate = useNavigate()
+    const navigate = useNavigate()
     function botaoLoginCadastrar() {
         navigate('/cadastro-usuarios')
     }
