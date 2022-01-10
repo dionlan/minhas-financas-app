@@ -142,8 +142,7 @@ function CadastroLancamentos() {
                 </div>
                 <div className="col-md-4">
                     <FormGroup id="inputStatus" label="Status: ">
-                        <input id="inputStatus" type="text" className="form-control" name="status" disabled
-                        onChange={handleChange} />
+                        <input id="inputStatus" type="text" className="form-control" name="status" disabled value={inputCadastroLancamentos.status} />
                     </FormGroup>
                 </div>
             </div>

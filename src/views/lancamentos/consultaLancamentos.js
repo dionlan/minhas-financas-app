@@ -102,8 +102,8 @@ function ConsultaLancamentos (){
             const index = lancamentos.indexOf(lancamento);
             if(index !== -1){
                 lancamento['status'] = statusLancamento
-
-                setLancamentos([...lancamentos, lancamento])
+                lancamentos[index] = lancamento
+                setLancamentos([...lancamentos])
             } 
             messages.mensagemSucesso('Status atualizado com sucesso.') 
             })
