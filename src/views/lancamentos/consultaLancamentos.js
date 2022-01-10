@@ -23,10 +23,11 @@ function ConsultaLancamentos (){
     const [showConfirmDialog, setShowConfirmDialog] = useState(false);
     const [lancamentoDeletar, setLancamentoDeletar] = useState({});
 
+
     function buscar () {
 
         if(!ano){
-            messages.mensagemErro('O preenchimento do campo ano é obrigatórios')
+            messages.mensagemErro('O preenchimento do campo ano é obrigatório')
             return false;
         }
 
@@ -92,6 +93,28 @@ function ConsultaLancamentos (){
         navigate('/cadastro-lancamentos')
     }
 
+    function alterarStatusLancamento(lancamento, statusLancamento){
+
+        service
+            .atualizarStatus(lancamento.id, statusLancamento)
+            .then(response => {
+            
+            const index = lancamentos.indexOf(lancamento);
+            if(index !== -1){
+                lancamento['status'] = statusLancamento
+
+                setLancamentos([...lancamentos, lancamento])
+            } 
+            messages.mensagemSucesso('Status atualizado com sucesso.') 
+            })
+            .catch(error => {
+            console.log('ERRO STATUS LANÇAMENTO', error)
+            messages.mensagemErro('Ocorreu um erro ao tentar atualisar o status do lançamento.')
+        })
+    }
+
+
+
     return ( 
         <Card title = "Consulta Lançamentos" >
             <div className="row">
@@ -126,7 +149,10 @@ function ConsultaLancamentos (){
             <div className="row">
                 <div className="col-md-12">
                     <div className="bs-component">
-                        <LancamentosTable lancamentos={lancamentos} deleteAction={abrirConfirmação} editAction={editar} />
+                        <LancamentosTable lancamentos={lancamentos} 
+                                        deleteAction={abrirConfirmação} 
+                                        editAction={editar} 
+                                        alterarStatus={alterarStatusLancamento}/>
                     </div>
                 </div>
             </div>

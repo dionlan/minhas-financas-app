@@ -28,6 +28,11 @@ function CadastroLancamentos() {
         }
     });
 
+    /**
+     * Ao clicar para editar algum lançamento na tela de consultar lançamentos, é passada na propriedade editAction em consultaLancamentos a função de editar
+     * que navega até esta tela de cadastroLancamentos.js com o lançamento a ser editado carregado por meio do id vindo como parâmetro. 
+     * Neste momento o useEffect é chamado antes de qualquer outra função para carregar o lançamento a ser editado em tela.
+     */
     useEffect( () => { 
         if (!mounted.current) {
             if(id){
@@ -36,7 +41,8 @@ function CadastroLancamentos() {
                     setInputCadastroLancamentos({ ...response.data, }, )
                     mounted.current = true;
                 }).catch (erro => {
-                    mensagemErro(erro.response.data)
+                    mensagemErro(erro)
+                    //mensagemErro(erro.response.data)
                 })
             }
         }
@@ -49,27 +55,15 @@ function CadastroLancamentos() {
         });
     };
 
-    function validar(params) {
-        const msgs = []
-        if(!inputCadastroLancamentos.descricao){
-            msgs.push('O campo Descrição é obrigatório.')
-        }if(!inputCadastroLancamentos.valor){
-            msgs.push('O campo Valor é obrigatório.')
-        }if(!inputCadastroLancamentos.ano){
-            msgs.push('O campo Ano é obrigatório.')
-        }
-        return msgs;
-    }
-
     function cadastar() {
-        const msgs = validar()
-
-        if(msgs && msgs.length > 0){
-            msgs.forEach((msg, index) => {
-                mensagemErro(msg)
-            })
+        try{
+            service.validar(inputCadastroLancamentos)
+        }catch(erro){
+            const mensagens = erro.mensagens;
+            mensagens.forEach(msg => mensagemErro(msg))
             return false
         }
+        
         service.cadastrarLancamento(inputCadastroLancamentos)
         .then(response => {
             navigate('/consulta-lancamentos')
@@ -83,14 +77,14 @@ function CadastroLancamentos() {
     }
 
     function atualizar() {
-        const msgs = validar()
-
-        if(msgs && msgs.length > 0){
-            msgs.forEach((msg, index) => {
-                mensagemErro(msg)
-            })
+        try{
+            service.validar(inputCadastroLancamentos)
+        }catch(erro){
+            const mensagens = erro.mensagem;
+            mensagens.forEach(msg => mensagemErro(msg))
             return false
         }
+
         service.atualizar(inputCadastroLancamentos)
         .then(response => {
             navigate('/consulta-lancamentos')
@@ -148,7 +142,7 @@ function CadastroLancamentos() {
                 </div>
                 <div className="col-md-4">
                     <FormGroup id="inputStatus" label="Status: ">
-                        <input id="inputStatus" type="text" className="form-control" name="status" value={inputCadastroLancamentos.status} 
+                        <input id="inputStatus" type="text" className="form-control" name="status" disabled
                         onChange={handleChange} />
                     </FormGroup>
                 </div>

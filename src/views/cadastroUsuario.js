@@ -13,39 +13,22 @@ function CadastroUsuario() {
 
     const service = new UsuarioService()
 
-    function validar(params) {
-        const msgs = []
-        if(!nome){
-            msgs.push('O campo Nome é obrigatório.')
-        }
-        if(!email){
-            msgs.push('O campo Email é obrigatório.')
-        }else if(!email.match(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]/)){
-            msgs.push('Informe um Email válido.')
-        }
-        if(!senha || !senhaRepeticao){
-            msgs.push('Digite a senha 2x.')
-        }else if(senha !== senhaRepeticao){
-            msgs.push('As senhas não coincidem. Digite novamente.')
-        }
-        return msgs;
-    }
-
     function cadastar() {
-        const msgs = validar()
-
-        if(msgs && msgs.length > 0){
-            msgs.forEach((msg, index) => {
-                mensagemErro(msg)
-            })
-            return false
-        }
-
         const usuario = {
             nome: nome,
             email: email,
-            senha: senha
+            senha: senha, 
+            senhaRepeticao: senhaRepeticao
         }
+
+        try{
+            service.validar(usuario)
+        }catch(erro){
+            const msgs = erro.mensagens;
+            msgs.forEach(msg => mensagemErro(msg))
+            return false
+        }
+
         service.salvar(usuario)
         .then(response => {
             mensagemSucesso('Usuário cadastrado com sucesso. Faça o login para acessar o sistema.')

@@ -23,7 +23,7 @@ class Home extends React.Component{
                 this.setState({saldo:  response.data})
             }).catch(error => {
                 console.error(error.response)
-        });
+            });
     }
   
     render(){
