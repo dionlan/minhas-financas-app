@@ -11,7 +11,7 @@ const selectMenu = (props) => {
     })
  
     return(
-        <select {...props}>
+        <select className='form-label mt-4' {...props}>
             {options}
         </select>
     )

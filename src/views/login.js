@@ -52,9 +52,10 @@ function Login(){
                                             autoFocus={true} placeholder="Digite a Senha"/>
 
                                         </FormGroup>
-                                        <button onClick={entrar} className='btn btn-success'>Entrar</button>
-                                        <button onClick={botaoLoginCadastrar} className='btn btn-danger'>Cadastrar</button>
-                                        
+                                        <div className="form-label mt-4">
+                                            <button onClick={entrar} className='btn btn-success'>Entrar</button>
+                                            <button onClick={botaoLoginCadastrar} className='btn btn-danger'>Cadastrar</button>
+                                        </div>
                                     </fieldset>
                                 </div>
                             </div>

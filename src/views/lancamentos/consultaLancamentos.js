@@ -102,8 +102,8 @@ function ConsultaLancamentos (){
             const index = lancamentos.indexOf(lancamento);
             if(index !== -1){
                 lancamento['status'] = statusLancamento
-                lancamentos[index] = lancamento
-                setLancamentos([...lancamentos])
+
+                setLancamentos([...lancamentos, lancamento])
             } 
             messages.mensagemSucesso('Status atualizado com sucesso.') 
             })
@@ -139,9 +139,10 @@ function ConsultaLancamentos (){
                             <SelectMenu id="inputTipo" className="form-control" lista={tipos} 
                                         value={tipo} onChange={e => setTipo(e.target.value)} /> 
                         </FormGroup>
-
-                        <button type="button" onClick={buscar} className="btn btn-success">Buscar</button>
-                        <button type="button" onClick={preparaFormularioCadastro} className="btn btn-danger">Cadastrar</button>
+                        <div className="form-label mt-2">
+                            <button type="button" onClick={buscar} className="btn btn-primary">Buscar</button>
+                            <button type="button" onClick={preparaFormularioCadastro} className="btn btn-danger">Cadastrar</button>
+                        </div>
                     </div>
                 </div>
             </div>

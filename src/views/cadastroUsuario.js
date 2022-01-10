@@ -67,10 +67,10 @@ function CadastroUsuario() {
                             <input type="password" id="inputRepitaSenha" className="form-control" name="inputRepitaSenha" value={senhaRepeticao}
                             autoFocus={true} onChange={e => setSenhaRepeticao(e.target.value)}/>
                         </FormGroup>
-
-                        <button type="button" onClick={cadastar} className="btn btn-success">Salvar</button>
-                        <button type="button" onClick={cancelar} className="btn btn-danger">Cancelar</button>
-
+                        <div className="form-label mt-2">
+                            <button type="button" onClick={cadastar} className="btn btn-success">Salvar</button>
+                            <button type="button" onClick={cancelar} className="btn btn-danger">Cancelar</button>
+                        </div>
                     </div>
                 </div>
             </div>

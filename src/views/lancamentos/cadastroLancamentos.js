@@ -147,12 +147,10 @@ function CadastroLancamentos() {
                 </div>
             </div>
 
-            <div className="row">
-                <div className="col-md-6">
-                    <button className="btn btn-success" onClick={cadastar} > Cadastrar </button>
-                    <button className="btn btn-primary" onClick={atualizar} > Atualizar </button>
-                    <button className="btn btn-danger" onClick={cancelar} > Cancelar </button> 
-                </div>
+            <div className="form-label mt-2">
+                    <button className="btn btn-success" onClick={cadastar}> Cadastrar </button>
+                    <button className="btn btn-primary" onClick={atualizar}> Atualizar </button>
+                    <button className="btn btn-danger" onClick={cancelar}> Cancelar </button> 
             </div>
         </Card>
     )
