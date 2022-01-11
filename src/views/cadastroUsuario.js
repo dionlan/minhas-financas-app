@@ -68,8 +68,14 @@ function CadastroUsuario() {
                             autoFocus={true} onChange={e => setSenhaRepeticao(e.target.value)}/>
                         </FormGroup>
                         <div className="form-label mt-2">
-                            <button type="button" onClick={cadastar} className="btn btn-success">Salvar</button>
-                            <button type="button" onClick={cancelar} className="btn btn-danger">Cancelar</button>
+                            <button type="button" onClick={cadastar} className="btn btn-success">
+                                <i className="pi pi-save" />
+                                Salvar
+                            </button>
+                            <button type="button" onClick={cancelar} className="btn btn-danger">
+                                <i className="pi pi-times" />
+                                Cancelar
+                            </button>
                         </div>
                     </div>
                 </div>

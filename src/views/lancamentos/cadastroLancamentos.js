@@ -15,6 +15,7 @@ function CadastroLancamentos() {
     const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
     const { id } = useParams();
     const mounted = React.useRef();
+    const [atualizando, setAtualizando] = useState(false);
 
     const [inputCadastroLancamentos, setInputCadastroLancamentos] = useState({
         descricao:  '',
@@ -34,12 +35,13 @@ function CadastroLancamentos() {
      * Neste momento o useEffect é chamado antes de qualquer outra função para carregar o lançamento a ser editado em tela.
      */
     useEffect( () => { 
-        if (!mounted.current) {
+        if (!mounted.current || !atualizando ) {
             if(id){
                 service.obterPorId(id)
                     .then(response => {
                     setInputCadastroLancamentos({ ...response.data, }, )
                     mounted.current = true;
+                    setAtualizando(true)
                 }).catch (erro => {
                     mensagemErro(erro)
                     //mensagemErro(erro.response.data)
@@ -77,6 +79,7 @@ function CadastroLancamentos() {
     }
 
     function atualizar() {
+        setAtualizando(true)
         try{
             service.validar(inputCadastroLancamentos)
         }catch(erro){
@@ -148,9 +151,23 @@ function CadastroLancamentos() {
             </div>
 
             <div className="form-label mt-2">
-                    <button className="btn btn-success" onClick={cadastar}> Cadastrar </button>
-                    <button className="btn btn-primary" onClick={atualizar}> Atualizar </button>
-                    <button className="btn btn-danger" onClick={cancelar}> Cancelar </button> 
+                { atualizando ? 
+                    (
+                        <button className="btn btn-primary" onClick={atualizar}> 
+                            <i className="pi pi-refresh" />
+                            Atualizar 
+                        </button>
+                    ) : (
+                        <button className="btn btn-success" onClick={cadastar}> 
+                            <i className="pi pi-save" />
+                            Salvar 
+                        </button>
+                    )
+                }
+                    <button className="btn btn-danger" onClick={cancelar}> 
+                        <i className="pi pi-times" />
+                            Cancelar 
+                    </button> 
             </div>
         </Card>
     )

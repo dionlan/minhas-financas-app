@@ -42,10 +42,14 @@ function ConsultaLancamentos (){
         service
             .consultar(lancamentoFiltro)
             .then(response => {
+                const lista = response.data
+                if(lista.length < 1){
+                    messages.mensagemAlerta('Nenhum resultado encontrado.')
+                }
                 setLancamentos(lancamentos => response.data)
                 
-            }).catch(error => {
-                console.log('Erro ao buscar. ', error)
+            }).catch(erro => {
+                messages.mensagemErro(erro.response.data.detail)
             })
     }
 
@@ -71,8 +75,8 @@ function ConsultaLancamentos (){
 
             messages.mensagemSucesso('Lançamento deletado com sucesso.')
 
-        }).catch(error => {
-            console.log(error)
+        }).catch(erro => {
+            console.log(erro.response.data.detail)
             messages.mensagemErro('Ocorreu um erro ao tentar deletar o lançamento.')
         })
     }
@@ -102,13 +106,13 @@ function ConsultaLancamentos (){
             const index = lancamentos.indexOf(lancamento);
             if(index !== -1){
                 lancamento['status'] = statusLancamento
-
-                setLancamentos([...lancamentos, lancamento])
+                lancamentos[index] = lancamento
+                setLancamentos([...lancamentos])
             } 
             messages.mensagemSucesso('Status atualizado com sucesso.') 
             })
-            .catch(error => {
-            console.log('ERRO STATUS LANÇAMENTO', error)
+            .catch(erro => {
+            messages.mensagemErro(erro.response.data.detail)
             messages.mensagemErro('Ocorreu um erro ao tentar atualisar o status do lançamento.')
         })
     }
@@ -139,9 +143,15 @@ function ConsultaLancamentos (){
                             <SelectMenu id="inputTipo" className="form-control" lista={tipos} 
                                         value={tipo} onChange={e => setTipo(e.target.value)} /> 
                         </FormGroup>
-                        <div className="form-label mt-2">
-                            <button type="button" onClick={buscar} className="btn btn-primary">Buscar</button>
-                            <button type="button" onClick={preparaFormularioCadastro} className="btn btn-danger">Cadastrar</button>
+                        <div className="form-label mt-4">
+                            <button type="button" onClick={buscar} className="btn btn-success btn-sm">
+                                <i className="pi pi-search" /> 
+                                 Buscar
+                            </button>
+                            <button type="button" onClick={preparaFormularioCadastro} className="btn btn-danger btn-sm">
+                                <i className="pi pi-plus" />
+                                 Cadastrar
+                            </button>
                         </div>
                     </div>
                 </div>

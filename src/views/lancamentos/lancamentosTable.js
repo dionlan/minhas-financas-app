@@ -13,20 +13,20 @@ const lancamentoTable = (props) => {
                 <td>{lancamento.usuario.nome}</td>
                 <td>
                     <button onClick={e => props.alterarStatus(lancamento, 'EFETIVADO')}
-                            className='btn btn-success btn-sm' type="button">
-                            Efetivar
+                            className='btn btn-success btn-sm' type="button" title='Efetivar' disabled={lancamento.status !== 'PENDENTE'}>
+                            <i className='pi pi-check' />
                     </button>
                     <button onClick={e => props.alterarStatus(lancamento, 'CANCELADO')}
-                            className='btn btn-warning btn-sm' type="button">
-                            Cancelar
+                            className='btn btn-warning btn-sm' type="button" title='Cancelar' disabled={lancamento.status !== 'PENDENTE'}>
+                            <i className='pi pi-times' />
                     </button>
                     <button type='button' className='btn btn-primary btn-sm' 
-                            onClick={e => props.editAction(lancamento.id)} >
-                            Editar
+                            onClick={e => props.editAction(lancamento.id)} title='Editar'>
+                            <i className='pi pi-pencil' />
                     </button>
                     <button type='button' className='btn btn-danger btn-sm' 
-                    onClick={e => props.deleteAction(lancamento)} >
-                            Deletar
+                    onClick={e => props.deleteAction(lancamento)} title='Deletar'>
+                            <i className='pi pi-trash' />
                     </button>
                 </td>
             </tr>

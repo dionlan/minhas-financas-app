@@ -53,8 +53,14 @@ function Login(){
 
                                         </FormGroup>
                                         <div className="form-label mt-4">
-                                            <button onClick={entrar} className='btn btn-success'>Entrar</button>
-                                            <button onClick={botaoLoginCadastrar} className='btn btn-danger'>Cadastrar</button>
+                                            <button onClick={entrar} className='btn btn-success'>
+                                                <i className='pi pi-sign-in' />
+                                                Entrar
+                                            </button>
+                                            <button onClick={botaoLoginCadastrar} className='btn btn-danger'>
+                                                <i className='pi pi-plus' />
+                                                Cadastrar
+                                            </button>
                                         </div>
                                     </fieldset>
                                 </div>
