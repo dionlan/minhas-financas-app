@@ -21,7 +21,7 @@ const lancamentoTable = (props) => {
                             <i className='pi pi-times' />
                     </button>
                     <button type='button' className='btn btn-primary btn-sm' 
-                            onClick={e => props.editAction(lancamento.id)} title='Editar'>
+                            onClick={e => props.editAction(lancamento.userId)} title='Editar'>
                             <i className='pi pi-pencil' />
                     </button>
                     <button type='button' className='btn btn-danger btn-sm' 

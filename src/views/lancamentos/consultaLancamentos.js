@@ -9,6 +9,7 @@ import LocalStorageService from "../../app/service/localStorageService"
 import * as messages from '../../components/toastr'
 import {Dialog} from 'primereact/dialog'
 import {Button} from 'primereact/button'
+import { USUARIO_LOGADO } from "../../app/service/authService";
 
 function ConsultaLancamentos (){
 
@@ -31,13 +32,13 @@ function ConsultaLancamentos (){
             return false;
         }
 
-        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+        const usuarioLogado = LocalStorageService.obterItem(USUARIO_LOGADO)
         const lancamentoFiltro = {
             ano: ano,
             mes: mes,
             tipo: tipo,
             descricao: descricao,
-            usuario: usuarioLogado.id
+            usuario: usuarioLogado.userId
         }
         service
             .consultar(lancamentoFiltro)
@@ -67,7 +68,7 @@ function ConsultaLancamentos (){
     }
 
     function deletar(){
-        service.deletar(lancamentoDeletar.id)
+        service.deletar(lancamentoDeletar.userId)
         .then(response => { 
             const index = lancamentos.indexOf(lancamentoDeletar);
             lancamentos.splice(index, 1);

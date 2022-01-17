@@ -7,12 +7,13 @@ import LocalStorageService from "../../app/service/localStorageService"
 import { mensagemErro, mensagemSucesso } from "../../components/toastr"
 import { useNavigate } from 'react-router-dom'
 import { useParams } from "react-router-dom";
+import { USUARIO_LOGADO } from '../../app/service/authService';
 
 function CadastroLancamentos() {
     const service = new LancamentoService();
     const tipos = service.obterListaTiposLancamentos()
     const meses = service.obterListaMeses()
-    const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+    const usuarioLogado = LocalStorageService.obterItem(USUARIO_LOGADO)
     const { id } = useParams();
     const mounted = React.useRef();
     const [atualizando, setAtualizando] = useState(false);
@@ -25,7 +26,7 @@ function CadastroLancamentos() {
         tipo:       '',
         status:     '',
         usuario: {
-            id: usuarioLogado.id,
+            id: usuarioLogado.userId,
         }
     });
 
@@ -65,7 +66,7 @@ function CadastroLancamentos() {
             mensagens.forEach(msg => mensagemErro(msg))
             return false
         }
-        
+        console.log('LANÇAMENTO A SER CADASTRADO: ', inputCadastroLancamentos)
         service.cadastrarLancamento(inputCadastroLancamentos)
         .then(response => {
             navigate('/consulta-lancamentos')
