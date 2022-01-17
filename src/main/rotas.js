@@ -4,7 +4,6 @@ import CadastroUsuario from "../views/cadastroUsuario";
 import Home from "../views/home";
 import ConsultaLancamentos from '../views/lancamentos/consultaLancamentos'
 import CadastroLancamentos from "../views/lancamentos/cadastroLancamentos";
-import PrivateRoute from "./privateRoute"
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
