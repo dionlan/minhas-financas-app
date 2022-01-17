@@ -67,7 +67,7 @@ export default class LancamentoService extends ApiService{
     }
 
     atualizar(lancamentoInput){
-        return this.put(`/${lancamentoInput.id}`, lancamentoInput)
+        return this.put(`/${lancamentoInput.userId}`, lancamentoInput)
     }
 
     obterPorId(id){

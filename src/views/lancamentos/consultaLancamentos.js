@@ -101,7 +101,7 @@ function ConsultaLancamentos (){
     function alterarStatusLancamento(lancamento, statusLancamento){
 
         service
-            .atualizarStatus(lancamento.id, statusLancamento)
+            .atualizarStatus(lancamento.userId, statusLancamento)
             .then(response => {
             
             const index = lancamentos.indexOf(lancamento);

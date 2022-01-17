@@ -12,7 +12,6 @@ class UsuarioService extends ApiService{
     }
 
     obterSaldoPorUsuario(id){
-        console.log('ID USUÁRIO: ', id)
         return this.get(`/${id}/saldo`)
     }
 
