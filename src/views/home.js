@@ -1,29 +1,29 @@
-import React, {useEffect, useContext } from 'react' 
+import React, {useEffect, useContext, useState } from 'react' 
 import UsuarioService from '../app/service/usuarioService'
 import { AuthContext } from '../main/provedorAutenticacao';
 
 function Home(){
-
-    const [saldo, setSaldo] = React.useState(0)
+    const usuarioContext = useContext(AuthContext);
+    const [saldo, setSaldo] = useState(0)
     const usuarioService = new UsuarioService();
     
-    const usuarioContext = useContext(AuthContext);
+    const usuarioLogado = usuarioContext.usuarioAutenticado
 
     useEffect( () => { 
-        const usuarioLogado = usuarioContext.usuarioAutenticado
-        console.log('ID USUARIO LOGADO: ', usuarioLogado.userId)
+        
+        
         usuarioService
             .obterSaldoPorUsuario(usuarioLogado.userId)
-            .then( response => {
-                setSaldo(response.data)
-                console.log('SALDOOOO: ', saldo)
-            }).catch(error => {
-                console.error(error.response)
-            });
-    })
+            .then( response => 
+                setSaldo (response.data)
+            ).catch(error => {
+                console.error(error)
+            })
+    }, [usuarioLogado])
         
     return(
         <div className="jumbotron">
+            
             <h1 className="display-3">Bem vindo!</h1>
             <p className="lead">Esse é seu sistema de finanças.</p>
             <p className="lead">Seu saldo para o mês atual é de R$ {saldo}</p>

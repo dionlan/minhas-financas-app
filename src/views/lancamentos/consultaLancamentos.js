@@ -99,7 +99,7 @@ function ConsultaLancamentos (){
     }
 
     function alterarStatusLancamento(lancamento, statusLancamento){
-
+        console.log('ID LANÇAMENTO STATUS: ', lancamento)
         service
             .atualizarStatus(lancamento.userId, statusLancamento)
             .then(response => {

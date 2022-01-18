@@ -9,7 +9,7 @@ export default class LocalStorageService{
         return JSON.parse(item);
     }
 
-    static removerUsuario(chave){
+    static removerItem(chave){
         localStorage.removeItem(chave)
     }
 }

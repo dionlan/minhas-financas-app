@@ -24,7 +24,7 @@ function CadastroLancamentos() {
         mes:        '',
         valor:      '',
         tipo:       '',
-        status:     '',
+        status:     'PENDENTE',
         usuario: {
             userId: usuarioLogado.userId,
         }
