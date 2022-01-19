@@ -11,7 +11,6 @@ function ProvedorAutenticacao({ children }) {
 
     const [isAutenticado, setIsAutenticado] = useState(false)
     const [usuarioAutenticado, setUsuarioAutenticado] = useState('')
-    const [isLoading, setIsLoading] = useState(true);
 
     const iniciarSessao = (tokenDTO) => {
         console.log('iniciar sessao tokenDTO', tokenDTO)
@@ -37,15 +36,13 @@ function ProvedorAutenticacao({ children }) {
     }
 
     useEffect( () => { 
-        const ehAutenticado = AuthService.isUsuarioAutenticado()
-        console.log("USUARIO AUTENTICADO USE EFFECT?? ", ehAutenticado)
-        console.log("USUARIO AUTENTICADO DECLARAÇÃO LET?? ", isAutenticado)
-        if(ehAutenticado){
+        const isAutenticado = AuthService.isUsuarioAutenticado()
+        console.log("USUARIO AUTENTICADO?? ", isAutenticado)
+        if(isAutenticado){
             const usuario = AuthService.refreshSession()
-            setIsAutenticado({isAutenticado: ehAutenticado})
+            setIsAutenticado({isAutenticado: isAutenticado})
             setUsuarioAutenticado(usuario)
-            console.log("Usuario AUTENTICADO!! ", isAutenticado)
-            setIsLoading(!isLoading)
+            
         }else{
             return null
         }

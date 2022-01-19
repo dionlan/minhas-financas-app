@@ -3,7 +3,7 @@ import Card from '../components/card'
 import FormGroup from '../components/form-group'
 import { useNavigate } from 'react-router-dom'
 import UsuarioService from '../app/service/usuarioService'
-//import { mensagemErro } from '../components/toastr'
+import { mensagemErro } from '../components/toastr'
 //import LocalStorageService from '../app/service/localStorageService'
 //import ProvedorAutenticacao from '../main/provedorAutenticacao'
 import { AuthContext } from '../main/provedorAutenticacao'
@@ -26,14 +26,14 @@ function Login(){
             senha: senha
         }).then(response => {
             //LocalStorageService.adicionarItem('_usuario_logado', response.data)
-            console.log('USUARIO: ', response.data)
+            //console.log('USUARIO: ', response.data)
             context.iniciarSessao(response.data);
             
             console.log('After home', context.usuarioAutenticado)
             navigate('/home')
         }).catch(erro => {
-            //mensagemErro(erro)
-            console.log('ERRO NO AUTENTICAR LOGIN: ', erro)
+            mensagemErro(erro.response.data.userMessage)
+            //console.log('ERRO NO AUTENTICAR LOGIN: ', erro)
         })
     }
 
@@ -43,7 +43,7 @@ function Login(){
     
     return(
         <div className="row">
-            <div className="col-md-6" style={ {position: "relative", left: "300px"} }>
+            <div className="col-md-6 offset-md-3">
                 <div className="bs-docs-section">
                     <Card title="Login" >  
                         <div className="row">
