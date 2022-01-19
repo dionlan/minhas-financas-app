@@ -2,7 +2,6 @@ import React from "react";
 import { createContext, useEffect, useState } from "react";
 import AuthService from "../app/service/authService";
 import jwt_decode from "jwt-decode";
-import ApiService from "../app/apiservice";
 
 export const AuthContext = createContext();
 export const AuthConsumer = AuthContext.Consumer;
@@ -24,7 +23,6 @@ function ProvedorAutenticacao({ children }) {
         }
         console.log("Usuário iniciado: ", usuario)
 
-        ApiService.registrarToken(token)
         AuthService.logar(usuario, token)
 
         setIsAutenticado(true)

@@ -6,12 +6,18 @@ import ConsultaLancamentos from '../views/lancamentos/consultaLancamentos'
 import CadastroLancamentos from "../views/lancamentos/cadastroLancamentos";
 import PrivateRoute from './privateRoute'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import LandingPage from "../views/landingPage";
 
 function Rotas(){
     return(
         <Router>
             <Routes>
-                <Route path='/' element={<PrivateRoute/>}>
+                <Route path="/" element={<LandingPage/>} />
+                <Route path="/login" element={<Login/>} />
+                <Route path="/cadastro-usuarios" element={<CadastroUsuario/>}/> 
+
+                <Route element={<PrivateRoute/>}>
+                    
                     <Route path="/home" element={<Home/>} />
                     <Route path="/consulta-lancamentos" element={<ConsultaLancamentos/>}/>
                     <Route path="/cadastro-lancamentos">
@@ -19,8 +25,7 @@ function Rotas(){
                         <Route path="" element={<CadastroLancamentos/>}/>
                     </Route>
                 </Route>
-                <Route path="/login" element={<Login/>} />
-                <Route path="/cadastro-usuarios" element={<CadastroUsuario/>}/> 
+                
             </Routes>
         </Router>
     ) 

@@ -19,9 +19,6 @@ function Home(){
                 ).catch(error => {
                     console.error(error)
                 })
-            return () => {
-                clearInterval(saldo)
-            }
         }else {
             return null
         }
