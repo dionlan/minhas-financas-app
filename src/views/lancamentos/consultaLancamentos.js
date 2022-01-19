@@ -38,7 +38,7 @@ function ConsultaLancamentos (){
             mes: mes,
             tipo: tipo,
             descricao: descricao,
-            usuario: usuarioLogado.userId
+                usuario: usuarioLogado.userId
         }
         service
             .consultar(lancamentoFiltro)
@@ -68,7 +68,7 @@ function ConsultaLancamentos (){
     }
 
     function deletar(){
-        service.deletar(lancamentoDeletar.userId)
+        service.deletar(lancamentoDeletar.id)
         .then(response => { 
             const index = lancamentos.indexOf(lancamentoDeletar);
             lancamentos.splice(index, 1);
@@ -101,7 +101,7 @@ function ConsultaLancamentos (){
     function alterarStatusLancamento(lancamento, statusLancamento){
         console.log('ID LANÇAMENTO STATUS: ', lancamento)
         service
-            .atualizarStatus(lancamento.userId, statusLancamento)
+            .atualizarStatus(lancamento.id, statusLancamento)
             .then(response => {
             
             const index = lancamentos.indexOf(lancamento);

@@ -14,7 +14,7 @@ function CadastroLancamentos() {
     const tipos = service.obterListaTiposLancamentos()
     const meses = service.obterListaMeses()
     const usuarioLogado = LocalStorageService.obterItem(USUARIO_LOGADO)
-    const { userId } = useParams();
+    const { id } = useParams();
     const mounted = React.useRef();
     const [atualizando, setAtualizando] = useState(false);
 
@@ -37,8 +37,8 @@ function CadastroLancamentos() {
      */
     useEffect( () => { 
         if (!mounted.current || !atualizando ) {
-            if(userId){
-                service.obterPorId(userId)
+            if(id){
+                service.buscar(id)
                     .then(response => {
                     setInputCadastroLancamentos({ ...response.data, }, )
                     mounted.current = true;
@@ -80,6 +80,7 @@ function CadastroLancamentos() {
     }
 
     function atualizar() {
+        console.log('lançamento a ser atualizado: ', inputCadastroLancamentos)
         setAtualizando(true)
         try{
             service.validar(inputCadastroLancamentos)

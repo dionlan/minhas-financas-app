@@ -5,7 +5,7 @@ function LandingPage() {
 
     let navigate = useNavigate()
     function goToHomePage() {
-        navigate('/home')
+        navigate('/login')
     }
 
     return(
