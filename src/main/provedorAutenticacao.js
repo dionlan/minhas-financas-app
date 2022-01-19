@@ -10,8 +10,8 @@ const AuthProvider = AuthContext.Provider;
 
 function ProvedorAutenticacao({ children }) {
 
-    let [isAutenticado, setIsAutenticado] = useState(false)
-    let [usuarioAutenticado, setUsuarioAutenticado] = useState('')
+    const [isAutenticado, setIsAutenticado] = useState(false)
+    const [usuarioAutenticado, setUsuarioAutenticado] = useState('')
     const [isLoading, setIsLoading] = useState(true);
 
     const iniciarSessao = (tokenDTO) => {
@@ -44,24 +44,26 @@ function ProvedorAutenticacao({ children }) {
         console.log("USUARIO AUTENTICADO DECLARAÇÃO LET?? ", isAutenticado)
         if(ehAutenticado){
             const usuario = AuthService.refreshSession()
-            setIsAutenticado(ehAutenticado)
+            setIsAutenticado({isAutenticado: ehAutenticado})
             setUsuarioAutenticado(usuario)
             console.log("Usuario AUTENTICADO!! ", isAutenticado)
-            setIsLoading(false)
+            setIsLoading(!isLoading)
+        }else{
+            return null
         }
     }, [])
 
     const contexto = {
         iniciarSessao,
         encerrarSessao,
-        usuarioAutenticado: usuarioAutenticado,
-        isAutenticado: isAutenticado
+        usuarioAutenticado,
+        isAutenticado
     }
 
     return (
-            <AuthProvider value={contexto}>
-                {children}
-            </AuthProvider>
+        <AuthProvider value={contexto}>
+            {children}
+        </AuthProvider>
 	);
 }
 

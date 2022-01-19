@@ -6,20 +6,26 @@ function Home(){
     const usuarioContext = useContext(AuthContext);
     const [saldo, setSaldo] = useState(0)
     const usuarioService = new UsuarioService();
-    
-    const usuarioLogado = usuarioContext.usuarioAutenticado
 
     useEffect( () => { 
-        
-        
-        usuarioService
-            .obterSaldoPorUsuario(usuarioLogado.userId)
-            .then( response => 
-                setSaldo (response.data)
-            ).catch(error => {
-                console.error(error)
-            })
-    }, [usuarioLogado])
+        if(usuarioContext.isAutenticado){
+            const usuarioLogado = usuarioContext.usuarioAutenticado
+            console.log('USUARIO LOGADO: ', usuarioLogado.userId)
+            usuarioService
+                .obterSaldoPorUsuario(usuarioLogado.userId)
+                .then( response => 
+                    setSaldo (response.data)
+                    //console.log('SALDO: ', response.data)
+                ).catch(error => {
+                    console.error(error)
+                })
+            return () => {
+                clearInterval(saldo)
+            }
+        }else {
+            return null
+        }
+    }, [usuarioContext])
         
     return(
         <div className="jumbotron">
